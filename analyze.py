@@ -16,7 +16,7 @@ from datetime import datetime
 import typing as T
 import matplotlib.pyplot as plt
 import numpy as np
-
+filer = open('output.txt')
 
 def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
 
@@ -33,6 +33,23 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
             temperature[time] = {room: r[room]["temperature"][0]}
             occupancy[time] = {room: r[room]["occupancy"][0]}
             co2[time] = {room: r[room]["co2"][0]}
+        temp = []
+        for k,v in temperature.items():
+            temp.append(list(v.values())[0])
+        tempDF = pandas.DataFrame(temp)
+        tempMedian = tempDF.median()
+        tempVar = tempDF.var()
+        print("The median of the temperatures is:", tempMedian[0])
+        print("The variance of the temperatures is:", tempVar[0])
+
+        occu = []
+        for k,v in occupancy.items():
+            occu.append(list(v.values())[0])
+        occuDF = pandas.DataFrame(occu)
+        occuMedian = occuDF.median()
+        occuVar = occuDF.var()
+        print("The median of occupancy is:", occuMedian[0])
+        print("The variance of occupancy is:", occuVar[0])
 
     data = {
         "temperature": pandas.DataFrame.from_dict(temperature, "index").sort_index(),
@@ -44,20 +61,12 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
 
 
 if __name__ == "__main__":
-    p = argparse.ArgumentParser(description="load and analyse IoT JSON data")
-    p.add_argument("file", help="path to JSON data file")
-    P = p.parse_args()
-
-    file = Path(P.file).expanduser()
-
-    data = load_data(file)
-
+    data = load_data('output.txt')
     for k in data:
-        # data[k].plot()
+        data[k].plot()
         time = data[k].index
         data[k].hist()
         plt.figure()
         plt.hist(np.diff(time.values).astype(np.int64) // 1000000000)
         plt.xlabel("Time (seconds)")
-
     plt.show()
