@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 """
-This example assumes the JSON data is saved one line per timestamp (message from server).
-
-It shows how to read and process a text file line-by-line in Python, converting JSON fragments
-to per-sensor dictionaries indexed by time.
-These dictionaries are immediately put into Pandas DataFrames for easier processing.
-
-Feel free to save your data in a better format--I was just showing what one might do quickly.
+This is an implementation of an algorithm which detects anomalies in temperature sensor data.
+A temperature is determined to be an anomaly when it is too far from the average temperature.
+This distance from the average is parameter which can be adjusted. 
 """
 import pandas
 from pathlib import Path
