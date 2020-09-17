@@ -40,7 +40,13 @@ Lab1 | 2.0 | 2.1021538083387097
 
 #### Mean and variance of time interval of sensor readings:
 
+Time Interval | Mean | Variance
+----------|--------|----------
+Sensor | 1.0065610682187331 | 1.056993023094602
+
 #### Probability distribution function of time interval:
+
+![image](/TimeIntervalPDF.png)
 
 ## Task 3: Design
 Implemented an algorithm to detect anomalies in temperature sensor data.
