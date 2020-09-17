@@ -39,6 +39,7 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
     return data
 
 def detectAnomalies(data, metric, room):
+
     cleanData = data[metric][room].dropna()
     mean = cleanData.mean()
     stdDev = cleanData.std()
@@ -51,9 +52,9 @@ def detectAnomalies(data, metric, room):
             numAnomalies += 1
             cleanData.drop(i, inplace=True)
 
-    print("Percentage of \"bad\" data points found:", len(cleanData) / length)
-    print("Median for the", metric, "data in the", room, "room:", cleanData.median())
-    print("Median for the", metric, "data in the", room, "room:", cleanData.var(), "\n")
+    print("Percentage of \"bad\" data points found:", round(numAnomalies/length, 4), "%")
+    print("Median for the", metric, "data in the", room, "room:", round(cleanData.median(), 4))
+    print("Variance for the", metric, "data in the", room, "room:", round(cleanData.var(), 4), "\n")
 
 if __name__ == "__main__":
     data = load_data('output.txt')
