@@ -35,38 +35,66 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
             co2[time] = {room: r[room]["co2"][0]}
         temp = []
         for k,v in temperature.items():
-            temp.append(list(v.values())[0])
-        tempDF = pandas.DataFrame(temp)
-        tempMedian = tempDF.median()
-        tempVar = tempDF.var()
-        print("The median of the temperatures is:", tempMedian[0])
-        print("The variance of the temperatures is:", tempVar[0])
+            if (list(v.keys())[0] == "office"):
+                temp.append(list(v.values())[0])
+        tempOffice = pandas.DataFrame(temp)
+        tempMedian = tempOffice.median()
+        tempVar = tempOffice.var()
+        print("The median of the office temperatures is:", tempMedian[0])
+        print("The variance of the office temperatures is:", tempVar[0])
 
         occu = []
         for k,v in occupancy.items():
-            occu.append(list(v.values())[0])
-        occuDF = pandas.DataFrame(occu)
-        occuMedian = occuDF.median()
-        occuVar = occuDF.var()
-        print("The median of occupancy is:", occuMedian[0])
-        print("The variance of occupancy is:", occuVar[0])
-
+            if (list(v.keys())[0] == "office"):
+                occu.append(list(v.values())[0])
+        occuOffice = pandas.DataFrame(occu)
+        occuMedian = occuOffice.median()
+        occuVar = occuOffice.var()
+        print("The median of the office occupancy is:", occuMedian[0])
+        print("The variance of the office occupancy is:", occuVar[0])
     data = {
         "temperature": pandas.DataFrame.from_dict(temperature, "index").sort_index(),
         "occupancy": pandas.DataFrame.from_dict(occupancy, "index").sort_index(),
         "co2": pandas.DataFrame.from_dict(co2, "index").sort_index(),
     }
+    plt.figure()
+    data["temperature"]["office"].plot.density()
+    plt.title("Probability Density Function for Temperature in Office")
+    plt.xlabel("Temperature (Celsius)")
+    
+    plt.figure()
+    data["occupancy"]["office"].plot.density()
+    plt.title("Probability Density Function for Occupancy in Office")
+    plt.xlabel("Occupancy")
+
+    plt.figure()
+    data["co2"]["office"].plot.density()
+    plt.title("Probability Density Function for Co2 in Office")
+    plt.xlabel("Co2")
+    
+    time = data['temperature'].index
+    timeDelta = time[1:] - time[:-1]
+    timeInterval = [x.total_seconds() for x in timeDelta]
+    timeSeries = pandas.Series(timeInterval)
+    print("The time interval mean is: ", timeSeries.mean())
+    print("The time interval variance is:", timeSeries.var())
+
+    plt.figure()
+    timeSeries.plot.density()
+    plt.title('Time Interval Probability Density Function')
+    plt.xlabel('Time (seconds)')
+    plt.show()
 
     return data
 
 
 if __name__ == "__main__":
     data = load_data('output.txt')
-    for k in data:
-        data[k].plot()
-        time = data[k].index
-        data[k].hist()
-        plt.figure()
-        plt.hist(np.diff(time.values).astype(np.int64) // 1000000000)
-        plt.xlabel("Time (seconds)")
-    plt.show()
+    # for k in data:
+    #     data[k].plot()
+    #     time = data[k].index
+    #     data[k].hist()
+    #     plt.figure()
+    #     plt.hist(np.diff(time.values).astype(np.int64) // 1000000000)
+    #     plt.xlabel("Time (seconds)")
+    # plt.show()
