@@ -28,9 +28,15 @@ Lab1 | 2.0 | 2.1021538083387097
 
 #### Probability density function: Co2
 
+![image](/Co2PDF.png)
+
 #### Probability density function: Temperature
 
+![image](/TemperaturePDF.png)
+
 #### Probability density function: Occupancy
+
+![image](/OccupancyPDF.png)
 
 #### Mean and variance of time interval of sensor readings:
 
