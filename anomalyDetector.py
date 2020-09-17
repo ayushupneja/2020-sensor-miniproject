@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
-This is an implementation of an algorithm which detects anomalies in temperature sensor data.
-A temperature is determined to be an anomaly when it is too far from the average temperature.
-This distance from the average is parameter which can be adjusted. 
-The average temperature is a running average which includes all the sensors.
+This is an implementation of an algorithm which detects anomalies in sensor data.
+A data point is determined to be an anomaly when it is too far from the average temperature.
+This distance is defined as greater than 2 times the standard deviation from the mean.
 """
 import pandas
 from pathlib import Path
@@ -31,17 +30,6 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
             occupancy[time] = {room: r[room]["occupancy"][0]}
             co2[time] = {room: r[room]["co2"][0]}
 
-        limit = 10 # parameter to determine the range to detect anomalies  
-        counter = 0
-        runningAvg = 0
-        for k,v in temperature.items():
-            counter += 1
-            runningAvg = (list(v.values())[0] + runningAvg * (counter-1))/counter 
-            # An anomaly is detected if a value is too far from the average  
-            if list(v.values())[0] > runningAvg + limit or list(v.values())[0] < runningAvg - limit:
-                print("ANOMALY DETECTED! The temperature is:", list(v.values())[0]);
-                print("It is too far from the current average temperature, which is:", runningAvg, "\n");
-
     data = {
         "temperature": pandas.DataFrame.from_dict(temperature, "index").sort_index(),
         "occupancy": pandas.DataFrame.from_dict(occupancy, "index").sort_index(),
@@ -50,6 +38,25 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
 
     return data
 
+def detectAnomalies(data, metric, room):
+    cleanData = data[metric][room].dropna()
+    mean = cleanData.mean()
+    stdDev = cleanData.std()
+
+    numAnomalies = 0
+    length = len(cleanData)
+    # Count and cleanse data of anomalies
+    for i, temp in cleanData.iteritems():
+        if (temp < mean - 2*stdDev) or (temp > mean + 2*stdDev):
+            numAnomalies += 1
+            cleanData.drop(i, inplace=True)
+
+    print("Percentage of \"bad\" data points found:", len(cleanData) / length)
+    print("Median for the", metric, "data in the", room, "room:", cleanData.median())
+    print("Median for the", metric, "data in the", room, "room:", cleanData.var(), "\n")
 
 if __name__ == "__main__":
     data = load_data('output.txt')
+    detectAnomalies(data, "temperature", "office")
+    detectAnomalies(data, "temperature", "lab1")
+    detectAnomalies(data, "temperature", "class1")
