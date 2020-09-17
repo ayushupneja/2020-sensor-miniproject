@@ -49,7 +49,7 @@ Sensor | 1.0065610682187331 | 1.056993023094602
 ![image](/TimeIntervalPDF.png)
 
 ## Task 3: Design
-Implemented an algorithm to detect anomalies in temperature sensor data.
+Implemented an algorithm which detects anomalies in sensor data. A data point is determined to be an anomaly when it is too far from the average temperature. This distance is defined as greater than 2 times the standard deviation from the mean.
 
 A persistent change in temperature does not always indicate a failed sensor. External factors can influence temperature in ways that may appear to indicate a failed sensor. For example if a sensor was recording temperature near the entrance to a building. When people enter or leave the building, the temperature around the entrance may change dramatically. This would result in a consistent change in temperature which is to be expected.
 
