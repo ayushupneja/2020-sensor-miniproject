@@ -14,6 +14,28 @@ Added python code to Websockets client that saves the JSON data to "output.txt" 
 
 ## Task 2: Analysis
 
+#### Median and Variance observed by Temperature data in office:
+
+Temperature | Median | Variance
+------------|--------|----------
+Office | 23.01312357574916 | 2.9900143284023883
+
+#### Median and Variance observed by Occupancy data in office:
+
+Occupancy | Median | Variance
+----------|--------|----------
+Lab1 | 2.0 | 2.1021538083387097
+
+#### Probability density function: Co2
+
+#### Probability density function: Temperature
+
+#### Probability density function: Occupancy
+
+#### Mean and variance of time interval of sensor readings:
+
+#### Probability distribution function of time interval:
+
 ## Task 3: Design
 Implemented an algorithm to detect anomalies in temperature sensor data.
 
