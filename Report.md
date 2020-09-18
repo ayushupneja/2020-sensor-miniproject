@@ -1,8 +1,7 @@
-# Final Report
+# Report for 2020 Sensor Miniproject
 
-Below is our final report and solutions for the 2020 sensor mini project.
-
-
+### Contributors: Ayush Upneja (BU ID: U31742544), Alex Trinh (BU ID: )
+  
 ## Task 0: Setup Python Websockets
 
 After setting up and running the python code as described , the greeting string issues by the server to the client upon first connecting is: 
@@ -65,6 +64,8 @@ Sensor | 1.0065610682187331 | 1.056993023094602
 ##### Histogram: Time Interval
 
 ![image](/TimeIntervalHist.png)
+
+We find that the time interval mimics the Erlang Distribution for connection intervals in large systems.
 
 ## Task 3: Design
 Implemented an algorithm which detects anomalies in sensor data. A data point is determined to be an anomaly when it is too far from the average temperature. This distance is defined as greater than 2 times the standard deviation from the mean.
