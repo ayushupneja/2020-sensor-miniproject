@@ -1,6 +1,6 @@
 # Report for 2020 Sensor Miniproject
 
-### Contributors: Ayush Upneja (BU ID: U31742544), Alex Trinh (BU ID: )
+### Contributors: Ayush Upneja (BU ID: U31742544), Alex Trinh (BU ID: U58960291)
   
 ## Task 0: Setup Python Websockets
 
