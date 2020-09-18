@@ -14,39 +14,57 @@ Added python code to Websockets client that saves the JSON data to "output.txt" 
 
 ## Task 2: Analysis
 
-#### Median and Variance observed by Temperature data in office:
+##### Median and Variance observed by Temperature data in office:
 
 Temperature | Median | Variance
 ------------|--------|----------
 Office | 23.01312357574916 | 2.9900143284023883
 
-#### Median and Variance observed by Occupancy data in office:
+##### Median and Variance observed by Occupancy data in office:
 
 Occupancy | Median | Variance
 ----------|--------|----------
 Lab1 | 2.0 | 2.1021538083387097
 
-#### Probability density function: Co2
+## Graphs
+
+##### Probability density function: Co2
 
 ![image](/Co2PDF.png)
 
-#### Probability density function: Temperature
+##### Histogram: Co2
+
+![image](/Co2Hist.png)
+
+##### Probability density function: Temperature
 
 ![image](/TemperaturePDF.png)
 
-#### Probability density function: Occupancy
+##### Histogram: Temperature
+
+![image](/TempHist.png)
+
+##### Probability density function: Occupancy
 
 ![image](/OccupancyPDF.png)
 
-#### Mean and variance of time interval of sensor readings:
+##### Histogram: Occupancy
+
+![image](/OccupancyHist.png)
+
+##### Mean and variance of time interval of sensor readings:
 
 Time Interval | Mean | Variance
 ----------|--------|----------
 Sensor | 1.0065610682187331 | 1.056993023094602
 
-#### Probability distribution function of time interval:
+##### Probability distribution function of time interval:
 
 ![image](/TimeIntervalPDF.png)
+
+##### Histogram: Time Interval
+
+![image](/TimeIntervalHist.png)
 
 ## Task 3: Design
 Implemented an algorithm which detects anomalies in sensor data. A data point is determined to be an anomaly when it is too far from the average temperature. This distance is defined as greater than 2 times the standard deviation from the mean.
